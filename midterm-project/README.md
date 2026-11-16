@@ -4,6 +4,16 @@ Binary classification: predict whether a client will subscribe to a term deposit
 marketing campaign. The deliverable includes the exploratory notebook, a reproducible
 training script, a FastAPI prediction service and a Docker image ready for deployment.
 
+## Live demo
+
+- API: <https://bank-midterm.onrender.com>
+- Interactive docs: <https://bank-midterm.onrender.com/docs>
+- Health check: <https://bank-midterm.onrender.com/health>
+
+The demo runs on Render's free plan, which sleeps after 15 minutes without traffic. The
+first request can take about a minute. The repository includes a GitHub Actions keep-alive
+workflow that pings `/health` every 10 minutes while the demo is being reviewed.
+
 ## Dataset
 
 - Source: [UCI Machine Learning Repository - Bank Marketing](https://archive.ics.uci.edu/dataset/222/bank+marketing)
@@ -42,6 +52,9 @@ midterm-project/
 ├── Dockerfile                # serves the API on port 7860
 └── space_README.md           # README with Hugging Face Spaces metadata
 ```
+
+The repository root also contains `render.yaml` (Render Blueprint) and
+`.github/workflows/keepalive.yml` (keep-alive ping).
 
 ## Reproduce
 
@@ -167,20 +180,28 @@ to override it, for example `docker run -e PORT=10000 -p 9696:10000 bank-midterm
 
 ### Render (free)
 
-Render runs the same Dockerfile on its free web-service plan (0.1 CPU, 512 MB RAM, no
-credit card). The service sleeps after 15 minutes without traffic and wakes in about a
-minute.
+The repository includes `render.yaml`, a Render Blueprint that deploys the service from the
+`midterm-project` directory. The live demo is at <https://bank-midterm.onrender.com>.
 
-1. Push this repository to GitHub.
-2. In the Render dashboard choose **New > Web Service** and connect the repository.
-3. Set:
+1. In the Render dashboard choose **New > Blueprint** and connect this repository (branch
+   `main`).
+2. Render reads `render.yaml` and creates the `bank-midterm` web service:
    - **Root Directory**: `midterm-project`
-   - **Language**: `Docker`
+   - **Runtime**: `Docker`
    - **Instance Type**: `Free`
    - **Health Check Path**: `/health`
-4. Create the service. Render builds the image and exposes it at
-   `https://<service-name>.onrender.com`.
-5. Verify `/health` and `/docs`. The first request after a sleep can take about a minute.
+3. Apply the Blueprint. Render builds the image and exposes it at
+   `https://bank-midterm.onrender.com`.
+4. Verify `/health`, `/docs`, and `/predict`.
+
+To create the service manually instead, choose **New > Web Service**, connect the
+repository, and use the same values from step 2.
+
+The free instance sleeps after 15 minutes without traffic and wakes in about a minute. The
+`.github/workflows/keepalive.yml` workflow pings `/health` every 10 minutes so the demo
+stays warm. Disable that workflow in the GitHub Actions tab when it is no longer needed:
+the free plan includes 750 instance-hours per month, so a 24/7 keep-alive is close to the
+limit.
 
 The Dockerfile reads `PORT` when present (`${PORT:-7860}`), so the same image works on
 Render (which sets `PORT`) and on Hugging Face Spaces (port 7860).

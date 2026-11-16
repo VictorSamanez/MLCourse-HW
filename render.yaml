@@ -1,0 +1,9 @@
+services:
+  - type: web
+    name: bank-midterm
+    runtime: docker
+    plan: free
+    region: oregon
+    rootDir: midterm-project
+    healthCheckPath: /health
+    autoDeployTrigger: commit

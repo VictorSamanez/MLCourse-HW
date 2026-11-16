@@ -1,0 +1,15 @@
+{
+  "best_model": "xgboost",
+  "best_params": {
+    "model__learning_rate": "0.05",
+    "model__max_depth": "4",
+    "model__min_child_weight": "1"
+  },
+  "cv_auc_mean": 0.7959064752517577,
+  "cv_auc_std": 0.008315231842443847,
+  "validation_auc": 0.8088259458425358,
+  "threshold": 0.23,
+  "test_auc": 0.8069407075885432,
+  "test_pr_auc": 0.47188242832258304,
+  "temporal_auc": 0.6850763539616591
+}

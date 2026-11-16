@@ -1,0 +1,12 @@
+.venv/
+__pycache__/
+*.pyc
+data/
+images/
+*.ipynb
+requirements-dev.txt
+space_README.md
+README.md
+.git/
+.dockerignore
+Dockerfile

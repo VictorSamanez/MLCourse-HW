@@ -1,0 +1,59 @@
+{
+  "project": "bank-term-deposit-midterm",
+  "dataset": "bank-full.csv",
+  "dataset_sha256": "d1513ec63b385506f7cfce9f2c5caa9fe99e7ba4e8c3fa264b3aaf0f849ed32d",
+  "rows": 45211,
+  "train_rows": 36168,
+  "holdout_rows": 9043,
+  "features": [
+    "age",
+    "balance",
+    "day",
+    "campaign",
+    "pdays",
+    "previous",
+    "was_contacted_before",
+    "job",
+    "marital",
+    "education",
+    "default",
+    "housing",
+    "loan",
+    "contact",
+    "month",
+    "poutcome"
+  ],
+  "target": "y",
+  "positive_class": "yes",
+  "model": "XGBClassifier",
+  "hyperparameters": {
+    "n_estimators": 300,
+    "learning_rate": 0.05,
+    "max_depth": 4,
+    "min_child_weight": 1,
+    "subsample": 0.9,
+    "colsample_bytree": 0.9,
+    "eval_metric": "auc",
+    "tree_method": "hist",
+    "n_jobs": -1,
+    "random_state": 42
+  },
+  "threshold": 0.23,
+  "holdout_metrics": {
+    "auc": 0.8069407075885432,
+    "pr_auc": 0.47188242832258304,
+    "threshold": 0.23,
+    "precision": 0.4981238273921201,
+    "recall": 0.501890359168242,
+    "f1": 0.5
+  },
+  "versions": {
+    "python": "3.12",
+    "numpy": "2.3.3",
+    "pandas": "2.3.2",
+    "scikit_learn": "1.7.2",
+    "xgboost": "3.2.0"
+  },
+  "trained_at": "2026-11-16T05:56:59.167184+00:00",
+  "model_sha256": "3511f626a95f8d2198444a9e33ce746b4448dcc3598f53ff38831a2953718120"
+}
